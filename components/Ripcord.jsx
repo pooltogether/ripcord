@@ -36,7 +36,12 @@ export default function Home() {
 
   async function connectWallet() {
     await onboard.walletSelect()
-    await onboard.walletCheck()
+
+    const currentState = onboard.getState()
+
+    if (currentState.wallet.type) {
+      await onboard.walletCheck()
+    }
   }
 
   let withdrawUsdc = () => alert('not connected')
@@ -78,7 +83,9 @@ export default function Home() {
 
   let content
 
-  if (wallet) {
+  const currentState = onboard.getState()
+
+  if (currentState.address) {
     content =
       <div>
         <div>
