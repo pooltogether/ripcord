@@ -34,8 +34,9 @@ export default function Home() {
     setOnboard(onboard)
   }
 
-  function connectWallet() {
-    onboard.walletSelect()
+  async function connectWallet() {
+    await onboard.walletSelect()
+    await onboard.walletCheck()
   }
 
   let withdrawUsdc = () => alert('not connected')
