@@ -29,7 +29,7 @@ export default function Home() {
           color: white;
         }
         .subtitle {
-          color: gray;
+          color: violet;
         }
         
       `}</style>

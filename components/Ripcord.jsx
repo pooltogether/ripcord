@@ -41,6 +41,13 @@ export default function Home() {
 
     if (currentState.wallet.type) {
       await onboard.walletCheck()
+
+      const p = currentState.wallet.provider
+
+      if (p && p.selectedAddress) {
+        // trigger re-render
+        setDaiBalance(ethers.utils.bigNumberify(0))
+      }
     }
   }
 
@@ -49,7 +56,6 @@ export default function Home() {
 
   if (provider) {
     if (!address) {
-      console.log(provider)
       provider.listAccounts().then(accounts => {
         setAddress(accounts[0])
       })
@@ -91,13 +97,15 @@ export default function Home() {
         <div>
           <h1 className='color-white is-size-3'>Dai Pool</h1>
           <h1 className='color-white'>Dai Balance {ethers.utils.formatEther(daiBalance || '0')}</h1>
+          <br />
           <button className='button is-danger is-large' onClick={() => withdrawDai()}>Withdraw Dai</button>
         </div>
         <br />
         <br />
         <div>
           <h1 className='color-white is-size-3'>USDC Pool</h1>
-          <h1 className='color-white'>USDC Balance {ethers.utils.formatEther(usdcBalance || '0')}</h1>
+          <h1 className='color-white'>USDC Balance {ethers.utils.formatUnits(usdcBalance || '0', 6)}</h1>
+          <br />
           <button className='button is-danger is-large' onClick={() => withdrawUsdc()}>Withdraw USDC</button>
         </div>
       </div>
